@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Conference Room</title>
+  <!-- A-Frame Library -->
+  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+  <!-- face-api.js -->
+  <script src="js/face-api.js"></script>
+  <script src="socket.io/socket.io.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #emotion-labels {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 5px;
+      z-index: 1000;
+    }
+
+    #video {
+      /* display: none; */
+      width: 720px;
+      height: 560px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="emotion-labels">表情を認識中...</div>
+  <video id="video" autoplay muted></video>
+
+  <a-scene>
+    <a-sky color="gray"></a-sky>
+    <a-assets>
+        <a-asset-item id="room" src="CG/conference_room/scene.gltf"></a-asset-item>
+    </a-assets>
+    
+    
+    <a-entity 
+        gltf-model="#room"
+    ></a-entity>
+            
+            
+    <!-- プレイヤーエンティティ -->
+    <a-entity id="player" camera look-controls wasd-controls="acceleration: 20" position="0 1.6 0" jump
+      collision-detection moving>
+      <a-entity id="player-body" scale="0.4 0.5 0.5" position="0 -0.5 -0.8" visible="false">
+        <a-sphere id="mybody" radius="0.3" scale="1 0.9 0.8"></a-sphere>
+      </a-entity>
+    </a-entity>
+    
+  </a-scene>
+
+  <!-- スクリプト -->
+  <script src="js/face_reco_1.js"></script>
+  <script src="js/avatar_1.js"></script>
+  <script src="js/socket_1.js"></script>
+
+</body>
+
+</html>
